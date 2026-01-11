@@ -120,11 +120,40 @@ npm install
 
 ### 4. Run the Application
 
-In a new terminal (with your venv activated), start the app:
+Actually, there is a small detail to clarify: **both** terminals should technically be in your project folder, but they handle different "engines."
 
-```bash
+* **Terminal 1 (Backend):** Needs the `venv` activated to run the Python/Flask server.
+* **Terminal 2 (Frontend):** Does **not** strictly need the `venv` activated (because `npm` is a Node.js tool), but it must be in the project folder to find your `package.json`.
+
+Here is exactly how to write those steps in your **README** so they are crystal clear:
+
+---
+
+### 🚀 Running the Application
+
+To start the app, you need to open two separate terminals.
+
+#### 1. Backend Server (Python + OCR)
+
+Open **PowerShell**, navigate to the project folder, and run:
+
+```powershell
+.\venv\Scripts\activate
+python app.py
+
+```
+
+> **Note:** Keep this window open. This terminal runs the Flask server that handles the OCR and AI logic.
+
+#### 2. Frontend Desktop (Electron)
+
+Open a **second terminal** (PowerShell or CMD) in the same project folder given venv is activate, run:
+
+```powershell
 npm start
 
 ```
+
+> **Note:** This launches the actual desktop window. It will automatically connect to the backend running in the first terminal.
 
 ---
