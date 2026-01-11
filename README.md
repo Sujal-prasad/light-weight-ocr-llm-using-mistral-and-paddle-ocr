@@ -65,3 +65,66 @@ Generated reports follow a strict professional format including:
 * **Result Table:** Comparative view of Result vs. Reference Range with abnormal values highlighted.
 
 ---
+
+# 🩺 Lightweight Medical OCR & Offline LLM Assistant
+
+An offline-first desktop application designed for low-resource environments. It uses **PaddleOCR** for medical report digitisation and **Mistral-7B** for local intelligent analysis.
+
+## 📋 Prerequisites
+
+Before running the application, ensure you have the following installed:
+
+* **Python 3.10.11** (Standardized for stability)
+* **Node.js** (LTS version recommended)
+* **Ollama** (Running locally with `mistral` model pulled)
+* **Git**
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up the environment and run the application on your local machine.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Sujal-prasad/light-weight-ocr-llm-using-mistral-and-paddle-ocr.git
+cd light-weight-ocr-llm-using-mistral-and-paddle-ocr
+
+```
+
+### 2. Setup Python Backend
+
+We use a virtual environment to keep dependencies isolated.
+
+```powershell
+# Create the environment with Python 3.10
+py -3.10 -m venv venv
+
+# Activate the environment
+.\venv\Scripts\activate
+
+# Install requirements
+pip install -r requirements.txt
+
+```
+
+### 3. Setup Electron Frontend
+
+Install the desktop wrapper dependencies.
+
+```bash
+npm install
+
+```
+
+### 4. Run the Application
+
+In a new terminal (with your venv activated), start the app:
+
+```bash
+npm start
+
+```
+
+---
