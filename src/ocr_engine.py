@@ -1,77 +1,93 @@
 import sys
 import os
 import pytesseract
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path, pdfinfo_from_path
 import shutil
 import platform
 
-def configure_tesseract():
-    # If user explicitly sets path (optional)
-    env_path = os.environ.get("TESSERACT_CMD")
-    if env_path:
-        pytesseract.pytesseract.tesseract_cmd = env_path
-        return
-
-    # Windows
-    if platform.system() == "Windows":
-        pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-    else:
-        # Linux / Docker
-        tesseract_path = shutil.which("tesseract")
-        if not tesseract_path:
-            raise RuntimeError("Tesseract not found in PATH")
-        pytesseract.pytesseract.tesseract_cmd = tesseract_path
-configure_tesseract()
 # ---------------------------------------------------------
 # CONFIGURATION
 # ---------------------------------------------------------
-# # 1. Tesseract Path
-# path_to_tesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-# pytesseract.pytesseract.tesseract_cmd = path_to_tesseract
 
-# 2. Poppler Path (Your verified path)
-#Sujal
-#path_to_poppler = r"C:\Users\sujal\Downloads\Release-25.12.0-0\poppler-25.12.0\Library\bin"
-
-#Sreenjoyee
-path_to_poppler = r"C:\Users\BUTU2006\Desktop\poppler-25.12.0\Library\bin"
-
-# 3. Languages
-# Codes: 
-# eng=English, fra=French, deu=German, spa=Spanish
+# 1. Languages
+# Codes: eng=English, fra=French, deu=German, spa=Spanish
 # hin=Hindi, mar=Marathi, ben=Bengali
 ACTIVE_LANGUAGES = 'eng+fra+deu+spa+hin+mar+ben'
+
+def configure_environment():
+    """
+    Automatically configures Tesseract and Poppler paths based on the OS.
+    """
+    poppler_path = None
+    
+    # --- WINDOWS CONFIGURATION ---
+    if platform.system() == "Windows":
+        # 1. Tesseract Path (Update this if installed elsewhere)
+        tesseract_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+        if os.path.exists(tesseract_path):
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
+        else:
+            print("Warning: Tesseract not found at default Windows path.")
+
+        # 2. Poppler Path (Update this to YOUR specific path)
+        # Try specific user paths first, then fall back to None (PATH)
+        possible_poppler_paths = [
+            r"C:\Users\sujal\Downloads\Release-25.12.0-0\poppler-25.12.0\Library\bin",
+            r"C:\Users\BUTU2006\Desktop\poppler-25.12.0\Library\bin",
+            r"C:\Program Files\poppler-24.02.0\Library\bin" # Common install location
+        ]
+        
+        for p in possible_poppler_paths:
+            if os.path.exists(p):
+                poppler_path = p
+                print(f"✅ Poppler found at: {p}")
+                break
+        
+        if not poppler_path:
+            print("⚠️ Warning: Poppler path not found. Ensure it is in your System PATH.")
+
+    # --- LINUX / DOCKER CONFIGURATION ---
+    else:
+        # In Docker, we installed these via apt-get, so they are in the system PATH.
+        # We generally do NOT need to set paths manually.
+        pass
+
+    return poppler_path
+
+# Initialize configuration once
+POPPLER_PATH = configure_environment()
 
 def extract_text_from_pdf(pdf_path):
     """
     Extracts text using Tesseract with Multilingual support.
-    Supports European and Indian languages.
     """
-    
     if not os.path.exists(pdf_path):
-        print(f"Error: File not found at {pdf_path}")
+        print(f"❌ Error: File not found at {pdf_path}")
         return ""
 
     try:
+        # Debug: Check if PDF is valid before converting
+        info = pdfinfo_from_path(pdf_path, poppler_path=POPPLER_PATH)
+        print(f"📄 Processing PDF: {pdf_path} ({info['Pages']} pages)")
+
         # Convert PDF to images
         images = convert_from_path(
             pdf_path, 
             dpi=300, 
-            poppler_path=path_to_poppler
-            #"/usr/bin" for Linux Docker
-            #path_to_poppler for Windows
+            poppler_path=POPPLER_PATH
         )
     except Exception as e:
-        print(f"Error converting PDF: {e}")
+        print(f"❌ CRITICAL OCR ERROR: {e}")
+        print("Tip: If on Windows, check 'ocr_engine.py' Poppler path.")
+        print("Tip: If on Docker, ensure 'poppler-utils' is installed.")
         return ""
 
     full_text = []
-    print(f"Scanning {len(images)} pages using languages: [{ACTIVE_LANGUAGES}]...")
+    print(f"🔍 Scanning {len(images)} pages...")
 
     for i, image in enumerate(images):
         try:
             # Tesseract Magic
-            # It will now look for characters from all 7 languages simultaneously
             text = pytesseract.image_to_string(image, lang=ACTIVE_LANGUAGES)
             
             # Basic cleanup
@@ -80,7 +96,7 @@ def extract_text_from_pdf(pdf_path):
                 full_text.append(text)
 
         except Exception as e:
-            print(f"Error on page {i+1}: {e}")
+            print(f"⚠️ Error reading page {i+1}: {e}")
             continue
 
     return "\n".join(full_text)
@@ -89,11 +105,6 @@ def extract_text_from_pdf(pdf_path):
 # Test Block
 # ---------------------------------------------------------
 if __name__ == "__main__":
-    test_pdf = r"report\reports\Spanish\Spanish_LIVER_normal_2.pdf"
-    
-    print(f"Testing OCR on: {test_pdf}")
-    extracted_text = extract_text_from_pdf(test_pdf)
-    
-    print("\n--- Extracted Text Start ---")
-    print(extracted_text)
-    print("--- Extracted Text End ---")
+    # Test with a dummy file if run directly
+    print("Running OCR Engine Test...")
+    # You can add a specific test file path here to debug locally
