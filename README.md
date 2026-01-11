@@ -65,11 +65,6 @@ Generated reports follow a strict professional format including:
 * **Result Table:** Comparative view of Result vs. Reference Range with abnormal values highlighted.
 
 ---
-Since you are balancing a Python backend with an Electron frontend for a research-focused, "village-ready" application, your **README.md** needs to be very clear about environment setup.
-
-Here is a professional template you can copy and paste. I have written this specifically for **Python 3.10.11** and **Electron**, ensuring your friend and your supervisor can follow it easily.
-
----
 
 # 🩺 Lightweight Medical OCR & Offline LLM Assistant
 
