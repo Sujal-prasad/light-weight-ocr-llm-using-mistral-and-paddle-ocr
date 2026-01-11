@@ -4,6 +4,7 @@
   "description": "To prepare an appropriate README for your project, it is important to highlight the core functionality: generating high-fidelity, multilingual medical reports (CBC, KFT, LFT) and interpreting them using a lightweight OCR-LLM pipeline.",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,4 +25,5 @@
   "dependencies": {
     "lucide": "^0.562.0"
   }
+  
 }
