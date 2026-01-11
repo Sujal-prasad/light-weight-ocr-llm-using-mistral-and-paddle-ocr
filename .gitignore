@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints
+.DS_Store
+.env
+.vscode/
+logs/
+output/
+node_modules/

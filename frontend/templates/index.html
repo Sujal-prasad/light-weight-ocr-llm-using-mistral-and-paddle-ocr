@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical AI Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <head>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/lucide.min.js"></script>
+    <script src="/static/marked.min.js"></script> 
+</head>
+<body class="dark-mode">
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3><i data-lucide="database"></i> Raw Analysis</h3>
+            </div>
+            <pre id="reportOutput" class="json-viewer">Upload a report...</pre>
+        </aside>
+
+        <main class="chat-container">
+            <header class="chat-header">
+                <h2>🩺 Medical AI Assistant</h2>
+            </header>
+
+            <div id="messages" class="messages-area">
+                <div class="system-msg">Please upload your report.</div>
+            </div>
+
+            <div class="input-area">
+                <label for="pdfUpload" class="upload-label">
+                    <i data-lucide="plus"></i>
+                    <input type="file" id="pdfUpload" onchange="uploadPDF()" hidden />
+                </label>
+                <input id="userInput" placeholder="Ask questions about your report..." autocomplete="off" />
+                <button onclick="sendMessage()" id="sendBtn"><i data-lucide="send"></i></button>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+ <script src="/static/app.js"></script>
+<script>
+    // This activates the icons on page load
+    lucide.createIcons();
+</script>
+</html>

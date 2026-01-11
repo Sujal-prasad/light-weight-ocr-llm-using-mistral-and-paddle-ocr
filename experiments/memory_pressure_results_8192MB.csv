@@ -1,0 +1,11 @@
+pdf_name,memory_mb,status,latency_sec,output_length,partial_output,error_type,batch_id
+Marathi_BLOOD_normal_4.pdf,8192,success,19.318409204483032,1812,False,,1
+Bengali_LIVER_normal_1.pdf,8192,success,35.123510122299194,3430,False,,1
+Spanish_KIDNEY_normal_2.pdf,8192,success,18.862863302230835,1599,False,,1
+French_KIDNEY_abnormal_1.pdf,8192,success,18.460965394973755,1915,False,,1
+French_KIDNEY_abnormal_3.pdf,8192,success,15.458585262298584,1476,False,,1
+French_KIDNEY_abnormal_2.pdf,8192,success,19.84030055999756,2090,False,,1
+Bengali_LIVER_abnormal_3.pdf,8192,success,28.224318027496338,2811,False,,1
+Bengali_LIVER_abnormal_1.pdf,8192,success,13.630969285964966,1212,False,,1
+English_KIDNEY_abnormal_2.pdf,8192,success,35.935598850250244,3465,False,,1
+Spanish_KIDNEY_normal_4.pdf,8192,success,20.62218427658081,2214,False,,1

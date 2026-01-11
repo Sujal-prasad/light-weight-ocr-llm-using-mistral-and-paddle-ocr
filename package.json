@@ -1,0 +1,27 @@
+{
+  "name": "light-weight-ocr-llm-using-mistral-and-paddle-ocr",
+  "version": "1.0.0",
+  "description": "To prepare an appropriate README for your project, it is important to highlight the core functionality: generating high-fidelity, multilingual medical reports (CBC, KFT, LFT) and interpreting them using a lightweight OCR-LLM pipeline.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sujal-prasad/light-weight-ocr-llm-using-mistral-and-paddle-ocr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sujal-prasad/light-weight-ocr-llm-using-mistral-and-paddle-ocr/issues"
+  },
+  "homepage": "https://github.com/Sujal-prasad/light-weight-ocr-llm-using-mistral-and-paddle-ocr#readme",
+  "devDependencies": {
+    "electron": "^39.2.7"
+  },
+  "dependencies": {
+    "lucide": "^0.562.0"
+  }
+}
