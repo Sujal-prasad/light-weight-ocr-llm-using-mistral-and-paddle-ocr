@@ -27,7 +27,7 @@ def configure_environment():
         if os.path.exists(tesseract_path):
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
         else:
-            print("Warning: Tesseract not found at default Windows path.")
+            print("[WARNING] Tesseract not found at default Windows path.")
 
         # 2. Poppler Path (Update this to YOUR specific path)
         # Try specific user paths first, then fall back to None (PATH)
@@ -40,11 +40,11 @@ def configure_environment():
         for p in possible_poppler_paths:
             if os.path.exists(p):
                 poppler_path = p
-                print(f"✅ Poppler found at: {p}")
+                print(f"[SUCCESS] Poppler found at: {p}")
                 break
         
         if not poppler_path:
-            print("⚠️ Warning: Poppler path not found. Ensure it is in your System PATH.")
+            print("[WARNING] Poppler path not found. Ensure it is in your System PATH.")
 
     # --- LINUX / DOCKER CONFIGURATION ---
     else:
@@ -62,13 +62,13 @@ def extract_text_from_pdf(pdf_path):
     Extracts text using Tesseract with Multilingual support.
     """
     if not os.path.exists(pdf_path):
-        print(f"❌ Error: File not found at {pdf_path}")
+        print(f"[ERROR] File not found at {pdf_path}")
         return ""
 
     try:
         # Debug: Check if PDF is valid before converting
         info = pdfinfo_from_path(pdf_path, poppler_path=POPPLER_PATH)
-        print(f"📄 Processing PDF: {pdf_path} ({info['Pages']} pages)")
+        print(f"[INFO] Processing PDF: {pdf_path} ({info['Pages']} pages)")
 
         # Convert PDF to images
         images = convert_from_path(
@@ -77,13 +77,13 @@ def extract_text_from_pdf(pdf_path):
             poppler_path=POPPLER_PATH
         )
     except Exception as e:
-        print(f"❌ CRITICAL OCR ERROR: {e}")
+        print(f"[CRITICAL ERROR] OCR Failed: {e}")
         print("Tip: If on Windows, check 'ocr_engine.py' Poppler path.")
         print("Tip: If on Docker, ensure 'poppler-utils' is installed.")
         return ""
 
     full_text = []
-    print(f"🔍 Scanning {len(images)} pages...")
+    print(f"[INFO] Scanning {len(images)} pages...")
 
     for i, image in enumerate(images):
         try:
@@ -96,7 +96,7 @@ def extract_text_from_pdf(pdf_path):
                 full_text.append(text)
 
         except Exception as e:
-            print(f"⚠️ Error reading page {i+1}: {e}")
+            print(f"[ERROR] Reading page {i+1}: {e}")
             continue
 
     return "\n".join(full_text)
