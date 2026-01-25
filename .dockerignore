@@ -1,0 +1,19 @@
+# Ignore the Electron/Node dependencies
+node_modules/
+npm-debug.log
+
+# Ignore Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore the actual data (PDFs) 
+# We will mount these using -v instead of baking them into the image
+report/reports/
+uploads/
+
+# Ignore Git and IDE metadata
+.git/
+.vscode/
+.idea/

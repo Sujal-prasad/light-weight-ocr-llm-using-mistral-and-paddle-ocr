@@ -1,0 +1,11 @@
+pdf_name,cpu_cores,status,latency_sec,error_type
+Spanish_LIVER_abnormal_4.pdf,14.0,success,16.606481075286865,
+English_BLOOD_normal_1.pdf,14.0,success,16.831647634506226,
+Bengali_BLOOD_normal_3.pdf,14.0,success,11.573453664779663,
+French_LIVER_normal_3.pdf,14.0,success,13.455069780349731,
+French_KIDNEY_normal_3.pdf,14.0,success,12.470584154129028,
+French_KIDNEY_abnormal_2.pdf,14.0,success,8.64079737663269,
+English_KIDNEY_abnormal_4.pdf,14.0,success,12.253034353256226,
+English_BLOOD_abnormal_3.pdf,14.0,success,11.766820192337036,
+Marathi_LIVER_abnormal_4.pdf,14.0,success,14.547222375869751,
+Bengali_LIVER_normal_3.pdf,14.0,success,13.016288042068481,
